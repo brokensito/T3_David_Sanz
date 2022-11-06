@@ -30,7 +30,7 @@ def comienzo_lista(lista,comienzo):
 def pasajeros_lista(lista, cantidad):
     nombres = []
     for i in lista:
-        if i.largo>=cantidad:
+        if i.pasajeros>=cantidad:
             nombres.append(i.nombre)
 
     return nombres
