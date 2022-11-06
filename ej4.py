@@ -57,7 +57,28 @@ class Polinomio(DatoPolinomio):
 
     def dividir(polinomio1, polinomio2):
 
-        paux = 
+        paux = Polinomio()
+        pol1 = polinomio1.termino_mayor
+        while pol1 is not None:
+            pol2 = polinomio2.termino_mayor
+
+            while pol2 is not None:
+
+                termino = pol1.info.termino - pol2.info.termino
+                valor = pol1.info.valor/pol2.info.valor
+
+                if obtener_valor(paux, termino)!=0:
+                    valor+=obtener_valor(paux, termino)
+                    obtener_valor(paux, termino, valor)
+
+                else:
+                    agregar_termino(paux, termino, valor)
+
+                pol2 = pol2.sig
+
+            pol1=pol1.sig
+
+        return paux
         
         
 
@@ -79,12 +100,32 @@ class Polinomio(DatoPolinomio):
             print("{} x{}".format(actual.info.valor, actual.info.termino))
             actual= actual.sig
 
+    def existe(self, termino):
+        paux = self.termino_mayor
 
+        while paux is not None and paux.info.termino > termino:
+            paux = paux.sig
+
+        if paux is not None and paux.info.termino == termino:
+            return "El termino {} existe.".format(termino)
+        
+        else: 
+            return "El termino {} NO existe".format(termino)
 
 if __name__=="__main__":
 
     poli1 = Polinomio()
     poli1.agregar_termino(3,2)
     poli1.agregar_termino(2,2)
-    poli1.eliminar_termino(3)
     poli1.imprime()
+
+    poli2 = Polinomio()
+    poli2.agregar_termino(3,5)
+    poli2.agregar_termino(2,4)
+    poli2.imprime()
+
+    resta = poli1.restar(poli1,poli2)
+    division = poli1.dividir(poli1,poli2)
+    eliminar = poli1.eliminar_termino(2)
+    existe = poli2.existe(2)
+
