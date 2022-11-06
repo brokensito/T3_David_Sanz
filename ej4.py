@@ -45,6 +45,7 @@ class Polinomio(DatoPolinomio):
                     return
 
                 aux = aux.sig
+                
     def restar(self, nuevo):
 
         
