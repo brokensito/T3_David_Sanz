@@ -15,17 +15,17 @@ class Polinomio(DatoPolinomio):
         self.grado = -1
 
 
-    def agregar_termino(self, termino, valor):
+    def agregar_termino(polinomio, termino, valor):
         aux = Nodo()
         dato = DatoPolinomio(valor, termino)
         aux.info = dato
-        if termino > self.grado:
-            aux.sig = self.termino_mayor
-            self.termino_mayor = aux
-            self.grado = termino
+        if termino > polinomio.grado:
+            aux.sig = polinomio.termino_mayor
+            polinomio.termino_mayor = aux
+            polinomio.grado = termino
 
         else:
-            actual = self.termino_mayor
+            actual = polinomio.termino_mayor
             while actual.sig is not None and termino < actual.sig.info.termino:
                 actual = actual.sig
             aux.sig = actual.sig
@@ -45,14 +45,24 @@ class Polinomio(DatoPolinomio):
                     return
 
                 aux = aux.sig
-                
-    def restar(self, nuevo):
 
+    def restar(polinomio1, polinomio2):
+        paux = Polinomio()
+        mayor = polinomio1 if (polinomio1.grado > polinomio2.grado) else polinomio2
+        for i in range(0, mayor.grado+1):
+            total = obtener_valor(polinomio1, i) - obtener_valor(polinomio2, i)
+            if total !=0:
+                agregar_termino(paux,i, total)
+        return paux
+
+    def dividir(polinomio1, polinomio2):
+
+        paux = 
         
-        return
+        
 
-    def obtener_valor(self, termino):
-        aux = self.termino_mayor
+    def obtener_valor(polinomio, termino):
+        aux = polinomio.termino_mayor
         while aux is not None and aux.info.termino > termino:
             aux = aux.sig
 
@@ -63,9 +73,7 @@ class Polinomio(DatoPolinomio):
             return 0
 
     def imprime(self):
-
         actual = self.termino_mayor
-
         while actual is not None:
 
             print("{} x{}".format(actual.info.valor, actual.info.termino))
@@ -76,7 +84,7 @@ class Polinomio(DatoPolinomio):
 if __name__=="__main__":
 
     poli1 = Polinomio()
-    poli1.agregar_termino(3,3)
+    poli1.agregar_termino(3,2)
     poli1.agregar_termino(2,2)
     poli1.eliminar_termino(3)
     poli1.imprime()
