@@ -13,25 +13,25 @@ class Nave():
     def mostrar(self):
         return print("Nombre = {}\nLargo = {}\nTripulacion = {}\nPasajeros = {}".format(self.nombre, self.largo, self.tripulacion, self.pasajeros))
     
-def nombre_lista(lista, valor):
-    for i in range(len(lista)):
-        if valor in lista[i].nombre:
-            return lista[i].mostrar()
-    else:
-        return print("La nave que intentas consultar no esta dentro de nuestra base de datos, intentalo de nuevo.")
+
+def nombre_listas(lista, nave):
+    for i in lista:
+        if nave in i.nombre:
+            return i.mostrar()
+
 
 def comienzo_lista(lista,comienzo):
     nombres = []
-    for i in range(len(lista)):
-        if lista[i].nombre[:2]==comienzo:
-            nombres.append(lista[i].nombre)
+    for i in lista:
+        if i.nombre[:2]==comienzo:
+            nombres.append(i.nombre)
     return nombres
 
 def pasajeros_lista(lista, cantidad):
     nombres = []
-    for i in range(len(lista)):
-        if lista[i].largo>=cantidad:
-            nombres.append(lista[i].nombre)
+    for i in lista:
+        if i.largo>=cantidad:
+            nombres.append(i.nombre)
 
     return nombres
         
@@ -54,14 +54,9 @@ if __name__=="__main__":
     largo = sorted(lista, key=attrgetter("largo"), reverse=True)
     lista_largo =[x.nombre for x in largo]
 
-
     # Mostrar la informacion de Halcon Milenario y Estrella de la Muerte.
-    nombre_lista(lista, "Halcon Milenario")
-    nombre_lista(lista, "Estrella de la Muerte")
-    """
-    Otra manera de hacerlo puede ser utilizando
-
-    """
+    nombre_listas(lista, "Halcon Milenario")
+    nombre_listas(lista, "Estrella de la Muerte")
 
     # Determinar cuales son las cinco naves con mayor cantidad de pasajeros.
     pasajeros = sorted(lista, key=attrgetter("pasajeros"), reverse=True)
